@@ -63,7 +63,7 @@
   <script>
 
     function sendToVmix(inputName) {
-                const vmixApiUrl = 'http://192.168.64.144:8088/api'; // Replace with your vMix API URL
+                const vmixApiUrl = 'http://192.168.1.96:8088/api'; // Replace with your vMix API URL
                 const command = `${vmixApiUrl}/?Function=Merge&Input=${encodeURIComponent(inputName)}`;
                 
                 // Send an HTTP request to vMix
