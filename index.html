@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Webpage</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Responsive Background */
+    body {
+      background-image: url('imgs/Artboard 1.png'); /* Replace with your image */
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Container for images */
+    .image-container {
+      display: flex;
+      gap: 20px; /* Space between images */
+    }
+
+    /* Clickable images */
+    .image-container img {
+      width: 100px; /* Adjust as needed */
+      height: 100px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .image-container img:hover {
+      transform: scale(1.1); /* Slight zoom on hover */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="image-container">
+    <a href="1" id="1" onclick="performAction('Action 1')">
+      <img src="imgs/image1.png" alt="Action 1">
+    </a>
+    <a href="2" id="2" onclick="performAction('Action 2')">
+      <img src="imgs/image2.png" alt="Action 2">
+    </a>
+    <a href="3" id="3" onclick="performAction('Action 3')">
+      <img src="imgs/image3.png" alt="Action 3">
+    </a>
+    <a href="4" id="4" onclick="performAction('Action 4')">
+      <img src="imgs/image4.png" alt="Action 4">
+    </a>
+  </div>
+
+  <script>
+
+    function sendToVmix(inputName) {
+                const vmixApiUrl = 'http://192.168.64.144:8088/api'; // Replace with your vMix API URL
+                const command = `${vmixApiUrl}/?Function=Merge&Input=${encodeURIComponent(inputName)}`;
+                
+                // Send an HTTP request to vMix
+                fetch(command)
+                    .then(response => {
+                    if (response.ok) {
+                        console.log(`Command sent to vMix: ${inputName}`);
+                    } else {
+                        console.error(`Error sending command: ${response.statusText}`);
+                    }
+                    })
+                    .catch(error => console.error(`Fetch error: ${error}`));
+            }
+    
+        // Define actions for each image
+        function performAction(action) {
+            event.preventDefault();
+            const href = event.currentTarget.getAttribute('href');
+            sendToVmix(href);
+        }
+      </script>
+
+</body>
+</html>
